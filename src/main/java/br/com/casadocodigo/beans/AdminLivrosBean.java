@@ -27,16 +27,12 @@ public class AdminLivrosBean {
     @Inject
     private AutorDAO autorDAO; //para fazer operações com  o autor no bd
 
-    private List<Integer> autoresId = new ArrayList<>();
     @Inject
     private FacesContext context;
 
 
     @Transactional //necessário a anotação para a transição/alteração no DB
     public String salvar(){ //separa os autores da lista para 1 unico objetp autorID
-        for (Integer autorId : autoresId) {
-            livro.getAutores().add(new Autor(autorId));
-        }
         dao.salvar(livro);
 
         //.getExternalContext().getFlash(). vai fazer com que a mensagem perdure por 2 requests
@@ -60,11 +56,4 @@ public class AdminLivrosBean {
 
     public void setLivro(Livro livro) { this.livro = livro; }
 
-    public List<Integer> getAutoresId() {
-        return autoresId;
-    }
-
-    public void setAutoresId(List<Integer> autoresId) {
-        this.autoresId = autoresId;
-    }
 }

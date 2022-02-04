@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,10 @@ public class Livro {
 
     @Min(50)
     private Integer numeroPaginas;
+
+    @Temporal(TemporalType.DATE)
+    private Calendar dataPublicacao;
+
 
     @ManyToMany
     @Size(min = 1)
@@ -57,6 +62,10 @@ public class Livro {
     public List<Autor> getAutores() { return autores; }
 
     public void setAutores(List<Autor> autores) { this.autores = autores; }
+
+    public Calendar getDataPublicacao() { return dataPublicacao; }
+
+    public void setDataPublicacao(Calendar dataPublicacao) { this.dataPublicacao = dataPublicacao; }
 
     @Override
     public String toString() {
