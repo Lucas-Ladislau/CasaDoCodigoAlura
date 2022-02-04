@@ -10,7 +10,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +29,18 @@ public class AdminLivrosBean {
     @Inject
     private AutorDAO autorDAO; //para fazer operações com  o autor no bd
 
+    private Part capaLivro; //Part novo recurso do JavaEE 7 para envio de
+                            //arquivos substitui o tipo byte[]
+
     @Inject
     private FacesContext context;
 
 
     @Transactional //necessário a anotação para a transição/alteração no DB
-    public String salvar(){ //separa os autores da lista para 1 unico objetp autorID
+    public String salvar() throws IOException { //separa os autores da lista para 1 unico objetp autorID
         dao.salvar(livro);
-
+        capaLivro.write("C:\\Users\\dev-02\\IdeaProjects\\CasaDoCodigoAlura\\src\\main\\webapp\\livro" +
+                capaLivro.getSubmittedFileName());
         //.getExternalContext().getFlash(). vai fazer com que a mensagem perdure por 2 requests
         context.getExternalContext()
                 .getFlash().setKeepMessages(true);
@@ -48,9 +54,11 @@ public class AdminLivrosBean {
 //        this.autoresId = new ArrayList<>(); limpar a seleção anterior dos autores
     }
 
-    public List<Autor> getAutores(){
-        return autorDAO.listar();
-    }
+    public List<Autor> getAutores(){ return autorDAO.listar(); }
+
+    public Part getCapaLivro() { return capaLivro; }
+
+    public void setCapaLivro(Part capaLivro) { this.capaLivro = capaLivro; }
 
     public Livro getLivro() { return livro; }
 

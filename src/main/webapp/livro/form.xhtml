@@ -8,7 +8,7 @@
 <!--Se for alteração so na view colocar somente update resources -->
 
 <f:view>
-    <h:form>
+    <h:form enctype="multipart/form-data">
         <div>
             <h:outputLabel value="Titulo"/>
             <!-- required="true" para o campo ser obrigatório-->
@@ -40,6 +40,12 @@
         <div>
             <h:outputLabel value="Data Publicação"/>
             <h:inputText value="#{adminLivrosBean.livro.dataPublicacao}" id="dataPublicacao"/>
+            <h:message for="dataPublicacao"/>
+        </div>
+        <div>
+            <h:outputLabel value="Capa Livro"/> <!--vai dentro do Bean pois não precisa ser armazenada no BD-->
+            <h:inputFile value="#{adminLivrosBean.capaLivro}" id="capaLivro"/>
+            <h:message for="capaLivro"/>
         </div>
         <h:commandButton value="Cadastrar" action="#{adminLivrosBean.salvar}"/>
     </h:form>
