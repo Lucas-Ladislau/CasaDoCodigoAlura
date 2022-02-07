@@ -971,6 +971,7 @@ sequence|table|130869|130871|1
     <language id="40" parent="5" name="sql"/>
     <table id="41" parent="29" name="livro">
       <ObjectId>122677</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>259851</StateNumber>
     </table>

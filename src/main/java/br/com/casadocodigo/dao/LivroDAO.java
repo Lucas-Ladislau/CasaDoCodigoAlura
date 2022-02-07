@@ -21,6 +21,19 @@ public class LivroDAO {
                 + " JOIN FETCH l.autores "; //Juntar o livro relacionado ao seu respectivo autor(res)
         return em.createQuery(jpql, Livro.class).getResultList();
     }//DISTINCT serve para trazer somente 1 livro para cada autor(res),
-     //sem ele se o livro tivesse vários autores ele iria repetir o mesmo
+
+    public List<Livro> ultimosLancamentos() {
+        String jpql = "SELECT l FROM Livro l ORDER BY l.id DESC";
+        return em.createQuery(jpql, Livro.class)
+                .setMaxResults(5).getResultList();
+    }//Traz a consulta dos ultimos livros
+
+    public List<Livro> demaisLivros() {
+        String jpql = "SELECT l FROM Livro l ORDER BY l.id DESC";
+        return em.createQuery(jpql, Livro.class)
+                .setFirstResult(6).getResultList();
+    }
+    //sem ele se o livro tivesse vários autores ele iria repetir o mesmo
      //livro para cada autor
+    
 }
