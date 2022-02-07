@@ -35,6 +35,7 @@ public class Livro {
     @Temporal(TemporalType.DATE)
     private Calendar dataPublicacao;
 
+    private String capaPath;
 
     @ManyToMany
     @Size(min = 1)
@@ -62,6 +63,10 @@ public class Livro {
     public List<Autor> getAutores() { return autores; }
 
     public void setAutores(List<Autor> autores) { this.autores = autores; }
+
+    public String getCapaPath() { return capaPath; }
+
+    public void setCapaPath(String capaPath) { this.capaPath = capaPath; }
 
     public Calendar getDataPublicacao() { return dataPublicacao; }
 

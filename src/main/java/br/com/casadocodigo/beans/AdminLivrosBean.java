@@ -2,6 +2,7 @@ package br.com.casadocodigo.beans;
 
 import br.com.casadocodigo.dao.AutorDAO;
 import br.com.casadocodigo.dao.LivroDAO;
+import br.com.casadocodigo.infra.FileSaver;
 import br.com.casadocodigo.models.Autor;
 import br.com.casadocodigo.models.Livro;
 
@@ -31,7 +32,6 @@ public class AdminLivrosBean {
 
     private Part capaLivro; //Part novo recurso do JavaEE 7 para envio de
                             //arquivos substitui o tipo byte[]
-
     @Inject
     private FacesContext context;
 
@@ -39,8 +39,8 @@ public class AdminLivrosBean {
     @Transactional //necessário a anotação para a transição/alteração no DB
     public String salvar() throws IOException { //separa os autores da lista para 1 unico objetp autorID
         dao.salvar(livro);
-        capaLivro.write("C:\\Users\\dev-02\\IdeaProjects\\CasaDoCodigoAlura\\src\\main\\webapp\\livro" +
-                capaLivro.getSubmittedFileName());
+        FileSaver fileSaver = new FileSaver();
+        livro.setCapaPath(fileSaver.write(capaLivro, "livro")); //queremos somente o caminho da imagem para salvar no BD
         //.getExternalContext().getFlash(). vai fazer com que a mensagem perdure por 2 requests
         context.getExternalContext()
                 .getFlash().setKeepMessages(true);
