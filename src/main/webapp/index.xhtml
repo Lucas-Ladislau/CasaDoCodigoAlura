@@ -215,8 +215,8 @@
 	<ul class="vitrineDestaquinho-lista">
 		<ui:repeat value="#{homeBean.ultimosLancamentos()}" var="_livro">
 			<li class="livroNaVitrine vitrineDestaquinho-produto">
-				<a href="https://www.casadocodigo.com.br/products/livro-certificacao-java-associate" class="livroNaVitrine-link"
-						title="#{_livro.titulo}">
+				<a href="#{request.contextPath}/livro-detalhe.xhtml?id=#{_livro.id}" class="livroNaVitrine-link"
+				   title="#{_livro.titulo}">
 					<div class="livroNaVitrine-imagemContainer" role="presentation">
 						<img class="livroNaVitrine-imagem"
 							src="#{request.contextPath}/file/#{_livro.capaPath}"
@@ -236,8 +236,8 @@
 	<ul class="vitrineDaColecao-lista">
 		<ui:repeat value="#{homeBean.demaisLivros()}" var="_livro">
 			<li class="livroNaVitrine vitrineDaColecao-produto">
-				<a href="https://www.casadocodigo.com.br/products/livro-certificacao-java-associate" class="livroNaVitrine-link"
-					title="#{_livro.titulo}">
+				<a href="#{request.contextPath}/livro-detalhe.xhtml?id=#{_livro.id}" class="livroNaVitrine-link"
+				   title="#{_livro.titulo}">
 					<div class="livroNaVitrine-imagemContainer" role="presentation">
 						<img class="livroNaVitrine-imagem" src="#{request.contextPath}/file/#{_livro.capaPath}"
 							alt="#{_livro.titulo}" title="#{_livro.titulo}" />
