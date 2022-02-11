@@ -1,8 +1,11 @@
 package br.com.casadocodigo.dao;
 
 import br.com.casadocodigo.models.Livro;
+import org.hibernate.SessionFactory;
+import org.hibernate.jpa.QueryHints;
 
 import javax.ejb.Stateful;
+import javax.persistence.Cache;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -29,13 +32,23 @@ public class LivroDAO {
     public List<Livro> ultimosLancamentos() {
         String jpql = "SELECT l FROM Livro l ORDER BY l.id DESC";
         return em.createQuery(jpql, Livro.class)
-                .setMaxResults(5).getResultList();
+                .setMaxResults(5)
+                .setHint(QueryHints.HINT_CACHEABLE,true)
+                .setHint(QueryHints.HINT_CACHE_REGION, "home")
+                .getResultList();
     }//Traz a consulta dos ultimos livros
+//  .setHint() armazena as informações em cache da memória para serem acessadas
+//mais rapidamente
+//    hint cache region defini uma região de cache
+
 
     public List<Livro> demaisLivros() {
         String jpql = "SELECT l FROM Livro l ORDER BY l.id DESC";
         return em.createQuery(jpql, Livro.class)
-                .setFirstResult(5).getResultList();
+                .setFirstResult(5)
+                .setHint(QueryHints.HINT_CACHEABLE,true)
+                .setHint(QueryHints.HINT_CACHE_REGION, "home")
+                .getResultList();
     }
 
     public Livro buscaPorId(Integer id) {
@@ -51,5 +64,17 @@ public class LivroDAO {
     }
     //sem ele se o livro tivesse vários autores ele iria repetir o mesmo
     //livro para cada autor
-    
+
+    public void LimpaCache(){
+        Cache cache = em.getEntityManagerFactory().getCache();
+        cache.evict(Livro.class, 1l); //limpar o cache do livro com id 1
+        cache.evictAll();//evita o cache de todas as classes;
+
+        SessionFactory factory = em.getEntityManagerFactory().unwrap(SessionFactory.class);
+        factory.getCache().evictAllRegions(); //evita o cache de todas as regioes defindas naquela pagina
+        factory.getCache().evictQueryRegion("home");// evita o cash da região definida(nesse caso é home"
+    }
+    //TOMAR CUIDADO COM O USO DO TEMPO DE CASH ATIVO, POIS SE UM ELEMENTO FOR DELETADO DO BD
+    //ELE CONTINUARA SENDO EXIBIDO ATÉ O TEMPO FINAL DO CASH
+    //infispan é uma propriedade do hibernate
 }

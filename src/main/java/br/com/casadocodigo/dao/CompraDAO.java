@@ -19,8 +19,9 @@ public class CompraDAO implements Serializable {
     }
 
     public Compra buscaPorUuid(String uuid) {
-        em.createQuery("SELECT c FROM Compra c WHERE c.uuid= :uuid", Compra.class)
+        String jpql = "SELECT c FROM Compra c WHERE c.uuid= :uuid";
+        return em.createQuery(jpql, Compra.class)
                 .setParameter("uuid", uuid).getSingleResult();
-        return null;
+
     }
 }

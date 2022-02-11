@@ -6,4 +6,9 @@
     <welcome-file-list><!--página inicial caso o usuário esteja logado -->
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+
+    <context-param>
+        <param-name>org.omnifaces.CACHE_SETTINGS_APPLICATION_TTL</param-name>
+        <param-value>900</param-value>
+    </context-param>
 </web-app>

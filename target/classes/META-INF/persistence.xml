@@ -8,7 +8,15 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> <!--é necessário fazer a adição do hibernate no pom -->
         <!-- java transaction api || JNDI -->
         <jta-data-source>java:jboss/datasources/casadocodigoDS</jta-data-source>
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
         <properties>
+<!--            define a quantidade de tempo do dado em cache,para atualizacao, em ms(nesse caso 15min = 900000ms-->
+            <property name="hibernate.cache.infinispan.entity.expiration.lifespan"
+                      value="900000"/>
+<!--            define a quantidade de tempo sem uso de dado no cache em ms-->
+            <property name="hibernate.cache.infinispan.entity.expiration.max_idle"
+                      value="30000"/>
+            <property name="hibernate.cache.use_query_cache" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />

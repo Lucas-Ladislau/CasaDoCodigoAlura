@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Cacheable
 public class Livro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
